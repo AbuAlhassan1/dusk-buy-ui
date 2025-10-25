@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
 import { Button } from '@/components/ui/button';
+import { ExternalLink } from 'lucide-react';
 
 export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -17,7 +19,17 @@ export default function Products() {
       <div className="container mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4">Our Collection</h1>
-          <p className="text-xl text-muted-foreground">Explore our curated selection</p>
+          <p className="text-xl text-muted-foreground mb-6">Explore our curated selection</p>
+          
+          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg glass-effect border border-primary/20">
+            <ExternalLink className="h-5 w-5 text-primary" />
+            <span className="text-sm">Can't find what you're looking for?</span>
+            <Link to="/request-item">
+              <Button variant="link" className="text-primary p-0 h-auto font-semibold">
+                Request it here
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Category Filter */}

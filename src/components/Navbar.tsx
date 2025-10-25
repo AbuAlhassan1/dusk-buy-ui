@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart, User, LogOut, Package } from 'lucide-react';
+import { ShoppingCart, User, LogOut, Package, ExternalLink } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -26,6 +26,9 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/products" className="text-foreground/80 hover:text-foreground transition-colors">
               Products
+            </Link>
+            <Link to="/request-item" className="text-foreground/80 hover:text-foreground transition-colors">
+              Request Item
             </Link>
             <Link to="/about" className="text-foreground/80 hover:text-foreground transition-colors">
               About
@@ -61,6 +64,12 @@ export default function Navbar() {
                     <Link to="/orders" className="cursor-pointer">
                       <Package className="mr-2 h-4 w-4" />
                       My Orders
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/my-requests" className="cursor-pointer">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      My Requests
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />

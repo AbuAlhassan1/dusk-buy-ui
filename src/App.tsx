@@ -13,6 +13,8 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import Orders from "./pages/Orders";
+import RequestItem from "./pages/RequestItem";
+import MyRequests from "./pages/MyRequests";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
@@ -36,6 +38,8 @@ const App = () => (
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/orders" element={<Orders />} />
+                <Route path="/request-item" element={<RequestItem />} />
+                <Route path="/my-requests" element={<MyRequests />} />
                 <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
