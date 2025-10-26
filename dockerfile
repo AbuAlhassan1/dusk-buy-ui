@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Copy everything before install
 COPY . .
-
+ 
 RUN rm -rf node_modules && pnpm install --frozen-lockfile
 
 # ✅ Fix permissions for all .vue files in /app/pages
