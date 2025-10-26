@@ -5,7 +5,7 @@ export default function About() {
     <div className="min-h-screen py-12 px-4">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-6">About LUXE</h1>
+          <h1 className="text-5xl font-bold mb-6">About Alaa Gym Group</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             We curate the finest collection of premium products for those who appreciate quality and elegance
           </p>
@@ -43,7 +43,7 @@ export default function About() {
         <div className="prose prose-invert max-w-none">
           <h2 className="text-3xl font-bold mb-4">Our Story</h2>
           <p className="text-lg text-muted-foreground mb-6">
-            Founded with a passion for luxury and excellence, LUXE brings together the world's
+            Founded with a passion for excellence and community, Alaa Gym Group brings together the world's
             finest products in one curated collection. We believe that quality should never be
             compromised, and style should always be timeless.
           </p>

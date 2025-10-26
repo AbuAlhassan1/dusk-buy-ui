@@ -16,14 +16,14 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   // Check if user is super admin
-  const isSuperAdmin = user?.email === 'admin@luxe.com' || user?.email.endsWith('@admin.com');
+  const isSuperAdmin = user?.email === 'admin@alaagym.com' || user?.email.endsWith('@admin.com');
 
   return (
     <nav className="sticky top-0 z-50 glass-effect border-b border-border/50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-2xl font-bold gradient-text">
-            LUXE
+            Alaa Gym Group
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">

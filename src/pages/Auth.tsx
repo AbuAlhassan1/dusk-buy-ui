@@ -57,7 +57,7 @@ export default function Auth() {
       await signup(email, password, name);
       toast({
         title: 'Account created!',
-        description: 'Welcome to LUXE',
+        description: 'Welcome to Alaa Gym Group',
       });
       navigate('/');
     } catch (error) {
@@ -75,8 +75,8 @@ export default function Auth() {
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
       <Card className="w-full max-w-md p-8 border-border/50 bg-gradient-to-br from-card to-card/50">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">LUXE</h1>
-          <p className="text-muted-foreground">Welcome to luxury shopping</p>
+          <h1 className="text-4xl font-bold gradient-text mb-2">Alaa Gym Group</h1>
+          <p className="text-muted-foreground">Welcome to Alaa Gym Group</p>
         </div>
 
         <Tabs defaultValue="login" className="w-full">

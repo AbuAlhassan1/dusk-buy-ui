@@ -1,14 +1,14 @@
 # Super Admin Dashboard Features
 
 ## Overview
-The Super Admin Dashboard provides comprehensive management and analytics capabilities for the LUXE e-commerce platform.
+The Super Admin Dashboard provides comprehensive management and analytics capabilities for the Alaa Gym Group platform.
 
 ## Access
 - **URL**: `/admin`
 - **Authentication Required**: Yes
 - **Super Admin Credentials**: 
-  - Email must be `admin@luxe.com` or end with `@admin.com`
-  - For testing, create an account with email: `admin@luxe.com`
+  - Email must be `admin@alaagym.com` or end with `@admin.com`
+  - For testing, create an account with email: `admin@alaagym.com`
 
 ## Features
 
@@ -103,7 +103,7 @@ Regular users can:
 
 ### To test as Super Admin:
 1. Go to `/auth`
-2. Sign up with email: `admin@luxe.com`
+2. Sign up with email: `admin@alaagym.com`
 3. Navigate to user menu → "Super Admin"
 4. Access admin dashboard
 

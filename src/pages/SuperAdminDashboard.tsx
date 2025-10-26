@@ -63,7 +63,7 @@ const SuperAdminDashboard = () => {
   }, [requests]);
 
   // Check if user is super admin (in real app, this would be in user object from API)
-  const isSuperAdmin = user?.email === 'admin@luxe.com' || user?.email.endsWith('@admin.com');
+  const isSuperAdmin = user?.email === 'admin@alaagym.com' || user?.email.endsWith('@admin.com');
 
   // Conditional returns after all hooks
   if (!user) {
