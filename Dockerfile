@@ -1,4 +1,5 @@
-FROM node:20
+# Build stage
+FROM node:20 AS builder
 
 WORKDIR /app
 
@@ -14,7 +15,22 @@ COPY . .
 # Build the application
 RUN npm run build
 
-EXPOSE 3000
+# Production stage
+FROM nginx:alpine
 
-# Start the server
-CMD ["node", ".output/server/index.mjs"]
+# Copy built assets from builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy nginx configuration (optional, for SPA routing)
+RUN echo 'server { \
+    listen 80; \
+    location / { \
+        root /usr/share/nginx/html; \
+        index index.html; \
+        try_files $uri $uri/ /index.html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
