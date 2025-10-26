@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "brand": "Alaa Gym Group",
+    "products": "Products",
+    "requestItem": "Request Item",
+    "about": "About",
+    "myOrders": "My Orders",
+    "myRequests": "My Requests",
+    "dashboard": "Dashboard",
+    "superAdmin": "Super Admin",
+    "signIn": "Sign In",
+    "logout": "Logout"
+  },
+  "home": {
+    "hero": {
+      "title": "Luxury Redefined",
+      "subtitle": "Discover premium products crafted for those who appreciate the finer things",
+      "explore": "Explore Collection"
+    },
+    "features": {
+      "quality": {
+        "title": "Premium Quality",
+        "description": "Handpicked luxury items"
+      },
+      "secure": {
+        "title": "Secure Shopping",
+        "description": "100% buyer protection"
+      },
+      "delivery": {
+        "title": "Fast Delivery",
+        "description": "Express shipping worldwide"
+      }
+    },
+    "featured": {
+      "title": "Featured Collection",
+      "subtitle": "Curated selections for the discerning",
+      "viewAll": "View All Products"
+    }
+  },
+  "products": {
+    "title": "Our Collection",
+    "subtitle": "Explore our curated selection",
+    "notFound": "Can't find what you're looking for?",
+    "requestHere": "Request it here",
+    "all": "All",
+    "noProducts": "No products found in this category",
+    "addToCart": "Add to Cart"
+  },
+  "productDetail": {
+    "back": "Back",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "freeShipping": "Free Shipping",
+    "worldwide": "Worldwide",
+    "warranty": "Warranty",
+    "years": "2 Years",
+    "returns": "Returns",
+    "days": "30 Days"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "startShopping": "Start Shopping",
+    "continueShopping": "Continue Shopping",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  },
+  "auth": {
+    "welcome": "Welcome to Alaa Gym Group",
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "createAccount": "Create Account",
+    "creatingAccount": "Creating account...",
+    "welcomeBack": "Welcome back!",
+    "loginSuccess": "You have been logged in successfully",
+    "accountCreated": "Account created!",
+    "error": "Error",
+    "invalidCredentials": "Invalid credentials",
+    "accountError": "Could not create account"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage your store products",
+    "addProduct": "Add Product",
+    "editProduct": "Edit Product",
+    "manageProducts": "Manage Products",
+    "addNew": "Add New Product",
+    "updateDetails": "Update the product details below",
+    "fillDetails": "Fill in the details to add a new product to your store",
+    "productName": "Product Name",
+    "price": "Price ($)",
+    "category": "Category",
+    "selectCategory": "Select a category",
+    "imageUrl": "Image URL",
+    "leaveEmpty": "Leave empty to use a default image",
+    "description": "Description",
+    "update": "Update Product",
+    "add": "Add Product",
+    "cancel": "Cancel",
+    "allProducts": "All Products",
+    "viewManage": "View and manage all products in your store",
+    "image": "Image",
+    "name": "Name",
+    "actions": "Actions",
+    "noProducts": "No products found. Add your first product!",
+    "deleteConfirm": "Are you sure?",
+    "deleteWarning": "This action cannot be undone. This will permanently delete the product from your store.",
+    "delete": "Delete",
+    "productAdded": "Product added successfully!",
+    "productUpdated": "Product updated successfully!",
+    "productDeleted": "Product deleted successfully!",
+    "fillRequired": "Please fill in all required fields"
+  },
+  "requestItem": {
+    "title": "Request Custom Item",
+    "subtitle": "Found something you love from an external store? We'll source it for you",
+    "productName": "Product Name",
+    "storeName": "Store/Brand Name",
+    "productUrl": "Product URL (if available)",
+    "urlHelp": "Link to the product page helps us find it faster",
+    "budget": "Your Budget",
+    "quantity": "Quantity",
+    "details": "Additional Details",
+    "detailsPlaceholder": "Tell us more about the item - color, size, specifications, or any special requirements...",
+    "detailsHelp": "The more details you provide, the better we can source the right item",
+    "howItWorks": "How it works",
+    "step1": "We'll review your request within 24 hours",
+    "step2": "Our team will source the item and confirm pricing",
+    "step3": "You'll receive a quote and can approve the purchase",
+    "step4": "We handle everything - ordering, quality check, and delivery",
+    "submit": "Submit Request",
+    "submitting": "Submitting...",
+    "submitted": "Request submitted successfully!",
+    "submittedDesc": "We'll review your request and get back to you soon"
+  },
+  "myRequests": {
+    "title": "My Requests",
+    "subtitle": "Track your custom item requests",
+    "newRequest": "New Request",
+    "noRequests": "No requests yet",
+    "noRequestsDesc": "Request items from external stores and we'll source them for you",
+    "requestItem": "Request an Item",
+    "from": "From",
+    "requestedOn": "Requested on",
+    "budget": "Budget",
+    "quantity": "Quantity",
+    "productLink": "Product Link",
+    "viewProduct": "View Product",
+    "details": "Details",
+    "adminResponse": "Admin Response",
+    "pendingNote": "We're reviewing your request. You'll be notified once we have an update.",
+    "status": {
+      "pending": "Pending Review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
+  },
+  "admin": {
+    "title": "Super Admin Dashboard",
+    "subtitle": "Manage requests, products, and view analytics",
+    "accessDenied": "Access Denied",
+    "accessDeniedDesc": "You need super admin privileges to access this page.",
+    "goToDashboard": "Go to Dashboard",
+    "stats": {
+      "totalRequests": "Total Requests",
+      "allTime": "All time requests",
+      "pending": "Pending Review",
+      "awaiting": "Awaiting action",
+      "approved": "Approved",
+      "approvedSuccess": "Successfully approved",
+      "rejected": "Rejected",
+      "notApproved": "Not approved"
+    },
+    "tabs": {
+      "requests": "Requests",
+      "analytics": "Analytics",
+      "products": "Products"
+    },
+    "requests": {
+      "title": "Customer Requests",
+      "subtitle": "Review and manage item requests from customers",
+      "noRequests": "No customer requests yet",
+      "store": "Store",
+      "requested": "Requested",
+      "budget": "Budget",
+      "quantity": "Quantity",
+      "description": "Description",
+      "adminNotes": "Admin Notes",
+      "reviewedBy": "Reviewed by",
+      "approve": "Approve",
+      "reject": "Reject",
+      "approveTitle": "Approve Request",
+      "rejectTitle": "Reject Request",
+      "approveDesc": "Approve this customer request and optionally add notes about next steps.",
+      "rejectDesc": "Reject this request and provide a reason for the customer.",
+      "notesOptional": "Admin Notes (Optional)",
+      "rejectionReason": "Rejection Reason",
+      "notesPlaceholder": "e.g., We can source this item within 5-7 business days...",
+      "rejectPlaceholder": "e.g., Item not available from trusted suppliers...",
+      "approveRequest": "Approve Request",
+      "rejectRequest": "Reject Request",
+      "approved": "Request approved successfully!",
+      "rejectedSuccess": "Request rejected successfully!"
+    },
+    "analytics": {
+      "totalProducts": "Total Products",
+      "activeInStore": "Active in store",
+      "catalogValue": "Catalog Value",
+      "inventoryValue": "Total inventory value",
+      "avgPrice": "Avg Product Price",
+      "meanPrice": "Mean price point",
+      "byCategory": "Products by Category",
+      "categoryDist": "Distribution of products across categories",
+      "products": "products",
+      "noData": "No product data available",
+      "requestOverview": "Request Status Overview",
+      "requestBreakdown": "Breakdown of all customer requests"
+    },
+    "products": {
+      "title": "Product Inventory",
+      "subtitle": "Overview of all products in the store",
+      "product": "Product",
+      "category": "Category",
+      "price": "Price",
+      "actions": "Actions",
+      "view": "View",
+      "viewAll": "View All Products",
+      "noProducts": "No products available"
+    }
+  },
+  "about": {
+    "title": "About Alaa Gym Group",
+    "subtitle": "We curate the finest collection of premium products for those who appreciate quality and elegance",
+    "features": {
+      "selection": {
+        "title": "Premium Selection",
+        "description": "Every product is carefully handpicked for quality and style"
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "Committed to providing the best luxury shopping experience"
+      },
+      "customer": {
+        "title": "Customer First",
+        "description": "Your satisfaction is our top priority"
+      }
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Founded with a passion for excellence and community, Alaa Gym Group brings together the world's finest products in one curated collection. We believe that quality should never be compromised, and style should always be timeless.",
+      "paragraph2": "Our team travels the globe to discover unique pieces that embody craftsmanship, innovation, and elegance. Each item in our collection tells a story and represents our commitment to bringing you only the best.",
+      "paragraph3": "Join us on this journey of discovery and elevate your lifestyle with products that are designed to last and inspire."
+    }
+  },
+  "categories": {
+    "Electronics": "Electronics",
+    "Fashion": "Fashion",
+    "Home": "Home",
+    "Sports": "Sports",
+    "Books": "Books",
+    "Toys": "Toys",
+    "Other": "Other"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "close": "Close",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  }
+}

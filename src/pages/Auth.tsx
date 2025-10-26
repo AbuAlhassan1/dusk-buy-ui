@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +13,7 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const { login, signup, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   if (isAuthenticated) {
     navigate('/');
@@ -29,14 +31,14 @@ export default function Auth() {
     try {
       await login(email, password);
       toast({
-        title: 'Welcome back!',
-        description: 'You have been logged in successfully',
+        title: t('auth.welcomeBack'),
+        description: t('auth.loginSuccess'),
       });
       navigate('/');
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'Invalid credentials',
+        title: t('auth.error'),
+        description: t('auth.invalidCredentials'),
         variant: 'destructive',
       });
     } finally {
@@ -56,14 +58,14 @@ export default function Auth() {
     try {
       await signup(email, password, name);
       toast({
-        title: 'Account created!',
-        description: 'Welcome to Alaa Gym Group',
+        title: t('auth.accountCreated'),
+        description: t('auth.welcome'),
       });
       navigate('/');
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'Could not create account',
+        title: t('auth.error'),
+        description: t('auth.accountError'),
         variant: 'destructive',
       });
     } finally {
@@ -75,20 +77,20 @@ export default function Auth() {
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
       <Card className="w-full max-w-md p-8 border-border/50 bg-gradient-to-br from-card to-card/50">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">Alaa Gym Group</h1>
-          <p className="text-muted-foreground">Welcome to Alaa Gym Group</p>
+          <h1 className="text-4xl font-bold gradient-text mb-2">{t('nav.brand')}</h1>
+          <p className="text-muted-foreground">{t('auth.welcome')}</p>
         </div>
 
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsTrigger value="login">{t('auth.login')}</TabsTrigger>
+            <TabsTrigger value="signup">{t('auth.signup')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="login">
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <Label htmlFor="login-email">Email</Label>
+                <Label htmlFor="login-email">{t('auth.email')}</Label>
                 <Input
                   id="login-email"
                   name="email"
@@ -99,7 +101,7 @@ export default function Auth() {
                 />
               </div>
               <div>
-                <Label htmlFor="login-password">Password</Label>
+                <Label htmlFor="login-password">{t('auth.password')}</Label>
                 <Input
                   id="login-password"
                   name="password"
@@ -115,7 +117,7 @@ export default function Auth() {
                 className="w-full btn-primary"
                 size="lg"
               >
-                {loading ? 'Signing in...' : 'Sign In'}
+                {loading ? t('auth.signingIn') : t('auth.signIn')}
               </Button>
             </form>
           </TabsContent>
@@ -123,7 +125,7 @@ export default function Auth() {
           <TabsContent value="signup">
             <form onSubmit={handleSignup} className="space-y-4">
               <div>
-                <Label htmlFor="signup-name">Full Name</Label>
+                <Label htmlFor="signup-name">{t('auth.fullName')}</Label>
                 <Input
                   id="signup-name"
                   name="name"
@@ -133,7 +135,7 @@ export default function Auth() {
                 />
               </div>
               <div>
-                <Label htmlFor="signup-email">Email</Label>
+                <Label htmlFor="signup-email">{t('auth.email')}</Label>
                 <Input
                   id="signup-email"
                   name="email"
@@ -144,7 +146,7 @@ export default function Auth() {
                 />
               </div>
               <div>
-                <Label htmlFor="signup-password">Password</Label>
+                <Label htmlFor="signup-password">{t('auth.password')}</Label>
                 <Input
                   id="signup-password"
                   name="password"
@@ -160,7 +162,7 @@ export default function Auth() {
                 className="w-full btn-primary"
                 size="lg"
               >
-                {loading ? 'Creating account...' : 'Create Account'}
+                {loading ? t('auth.creatingAccount') : t('auth.createAccount')}
               </Button>
             </form>
           </TabsContent>

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Shield, Truck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import ProductCard from '@/components/ProductCard';
 import { useProducts } from '@/contexts/ProductContext';
 
 export default function Index() {
   const { products } = useProducts();
+  const { t } = useTranslation();
   const featuredProducts = products.slice(0, 4);
 
   return (
@@ -15,16 +17,14 @@ export default function Index() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
         <div className="container mx-auto text-center relative z-10">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 animate-fade-in">
-            <span className="gradient-text">Luxury</span>
-            <br />
-            Redefined
+            <span className="gradient-text">{t('home.hero.title')}</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in">
-            Discover premium products crafted for those who appreciate the finer things
+            {t('home.hero.subtitle')}
           </p>
           <Link to="/products">
             <Button size="lg" className="btn-primary text-lg px-8 animate-scale-in">
-              Explore Collection
+              {t('home.hero.explore')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
@@ -36,9 +36,9 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: Star, title: 'Premium Quality', description: 'Handpicked luxury items' },
-              { icon: Shield, title: 'Secure Shopping', description: '100% buyer protection' },
-              { icon: Truck, title: 'Fast Delivery', description: 'Express shipping worldwide' },
+              { icon: Star, title: t('home.features.quality.title'), description: t('home.features.quality.description') },
+              { icon: Shield, title: t('home.features.secure.title'), description: t('home.features.secure.description') },
+              { icon: Truck, title: t('home.features.delivery.title'), description: t('home.features.delivery.description') },
             ].map((feature, index) => (
               <div
                 key={index}
@@ -57,8 +57,8 @@ export default function Index() {
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Collection</h2>
-            <p className="text-xl text-muted-foreground">Curated selections for the discerning</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('home.featured.title')}</h2>
+            <p className="text-xl text-muted-foreground">{t('home.featured.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map(product => (
@@ -68,7 +68,7 @@ export default function Index() {
           <div className="text-center mt-12">
             <Link to="/products">
               <Button size="lg" variant="outline" className="text-lg">
-                View All Products
+                {t('home.featured.viewAll')}
               </Button>
             </Link>
           </div>
