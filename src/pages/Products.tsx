@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '@/components/ProductCard';
-import { products } from '@/data/products';
+import { useProducts } from '@/contexts/ProductContext';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
 
 export default function Products() {
+  const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];

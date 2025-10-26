@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useRequests } from '@/contexts/RequestContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { toast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { Package, ExternalLink } from 'lucide-react';
 
 export default function RequestItem() {
   const [loading, setLoading] = useState(false);
   const { user, isAuthenticated } = useAuth();
+  const { addRequest } = useRequests();
   const navigate = useNavigate();
 
   if (!isAuthenticated) {
@@ -24,29 +26,22 @@ export default function RequestItem() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const request = {
-      id: Date.now().toString(),
-      userId: user?.id,
+    
+    addRequest({
+      userId: user?.id || '',
       productName: formData.get('productName') as string,
       productUrl: formData.get('productUrl') as string,
       storeName: formData.get('storeName') as string,
       priceRange: formData.get('priceRange') as string,
       description: formData.get('description') as string,
       quantity: formData.get('quantity') as string,
-      date: new Date().toISOString(),
-      status: 'Pending Review',
-    };
-
-    // Save to localStorage
-    const existingRequests = JSON.parse(localStorage.getItem('itemRequests') || '[]');
-    localStorage.setItem('itemRequests', JSON.stringify([request, ...existingRequests]));
+    });
 
     await new Promise(resolve => setTimeout(resolve, 1000));
     setLoading(false);
 
-    toast({
-      title: 'Request submitted successfully!',
-      description: 'We\'ll review your request and get back to you soon',
+    toast.success('Request submitted successfully!', {
+      description: "We'll review your request and get back to you soon",
     });
 
     navigate('/my-requests');

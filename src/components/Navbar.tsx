@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart, User, LogOut, Package, ExternalLink } from 'lucide-react';
+import { ShoppingCart, User, LogOut, Package, ExternalLink, LayoutDashboard, Shield } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,9 @@ import {
 export default function Navbar() {
   const { itemCount } = useCart();
   const { user, logout } = useAuth();
+
+  // Check if user is super admin
+  const isSuperAdmin = user?.email === 'admin@luxe.com' || user?.email.endsWith('@admin.com');
 
   return (
     <nav className="sticky top-0 z-50 glass-effect border-b border-border/50">
@@ -60,6 +63,20 @@ export default function Navbar() {
                     <p className="text-xs text-muted-foreground">{user.email}</p>
                   </div>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard" className="cursor-pointer">
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  {isSuperAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="cursor-pointer text-primary">
+                        <Shield className="mr-2 h-4 w-4" />
+                        Super Admin
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem asChild>
                     <Link to="/orders" className="cursor-pointer">
                       <Package className="mr-2 h-4 w-4" />

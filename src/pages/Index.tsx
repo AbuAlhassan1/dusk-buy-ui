@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Shield, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductCard from '@/components/ProductCard';
-import { products } from '@/data/products';
+import { useProducts } from '@/contexts/ProductContext';
 
 export default function Index() {
+  const { products } = useProducts();
   const featuredProducts = products.slice(0, 4);
 
   return (

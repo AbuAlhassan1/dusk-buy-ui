@@ -1,40 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useRequests } from '@/contexts/RequestContext';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Clock, CheckCircle, XCircle } from 'lucide-react';
 
-interface ItemRequest {
-  id: string;
-  userId: string;
-  productName: string;
-  productUrl: string;
-  storeName: string;
-  priceRange: string;
-  description: string;
-  quantity: string;
-  date: string;
-  status: string;
-}
-
 export default function MyRequests() {
-  const [requests, setRequests] = useState<ItemRequest[]>([]);
-  const { isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const { getUserRequests } = useRequests();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/auth');
-      return;
-    }
-
-    const savedRequests = localStorage.getItem('itemRequests');
-    if (savedRequests) {
-      setRequests(JSON.parse(savedRequests));
     }
   }, [isAuthenticated, navigate]);
+
+  const requests = user ? getUserRequests(user.id) : [];
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -153,11 +137,18 @@ export default function MyRequests() {
                 )}
 
                 <div>
-                  <p className="text-muted-foreground mb-1">Details:</p>
+                  <p className="text-sm text-muted-foreground mb-1">Details:</p>
                   <p className="text-foreground/90 bg-muted/30 p-3 rounded border border-border/50">
                     {request.description}
                   </p>
                 </div>
+
+                {request.adminNotes && (
+                  <div className="bg-blue-500/10 p-3 rounded border border-blue-500/30">
+                    <p className="text-sm font-semibold mb-1">Admin Response:</p>
+                    <p className="text-sm text-foreground/90">{request.adminNotes}</p>
+                  </div>
+                )}
               </div>
 
               {request.status === 'Pending Review' && (
