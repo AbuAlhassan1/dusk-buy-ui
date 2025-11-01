@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ProductCard from '@/components/ProductCard';
 import { useProducts } from '@/contexts/ProductContext';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
 
 export default function Products() {
+  const { t } = useTranslation();
   const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   
@@ -19,15 +21,15 @@ export default function Products() {
     <div className="min-h-screen py-12 px-4">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4">Our Collection</h1>
-          <p className="text-xl text-muted-foreground mb-6">Explore our curated selection</p>
+          <h1 className="text-5xl font-bold mb-4">{t('products.title')}</h1>
+          <p className="text-xl text-muted-foreground mb-6">{t('products.subtitle')}</p>
           
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg glass-effect border border-primary/20">
             <ExternalLink className="h-5 w-5 text-primary" />
-            <span className="text-sm">Can't find what you're looking for?</span>
+            <span className="text-sm">{t('products.notFound')}</span>
             <Link to="/request-item">
               <Button variant="link" className="text-primary p-0 h-auto font-semibold">
-                Request it here
+                {t('products.requestHere')}
               </Button>
             </Link>
           </div>
@@ -42,7 +44,7 @@ export default function Products() {
               variant={selectedCategory === category ? 'default' : 'outline'}
               className={selectedCategory === category ? 'btn-primary' : ''}
             >
-              {category}
+              {category === 'All' ? t('products.all') : t(`categories.${category}`)}
             </Button>
           ))}
         </div>
@@ -56,7 +58,7 @@ export default function Products() {
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-xl text-muted-foreground">No products found in this category</p>
+            <p className="text-xl text-muted-foreground">{t('products.noProducts')}</p>
           </div>
         )}
       </div>

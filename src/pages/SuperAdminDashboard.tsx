@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRequests } from '@/contexts/RequestContext';
 import { useProducts } from '@/contexts/ProductContext';
@@ -33,6 +34,7 @@ import {
 import { Label } from '@/components/ui/label';
 
 const SuperAdminDashboard = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const { requests, updateRequestStatus, getRequestStats } = useRequests();
@@ -76,14 +78,14 @@ const SuperAdminDashboard = () => {
       <div className="min-h-screen flex items-center justify-center px-4">
         <Card className="max-w-md">
           <CardHeader>
-            <CardTitle className="text-center">Access Denied</CardTitle>
+            <CardTitle className="text-center">{t('admin.accessDenied')}</CardTitle>
             <CardDescription className="text-center">
-              You need super admin privileges to access this page.
+              {t('admin.accessDeniedDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
             <Button onClick={() => navigate('/dashboard')} className="btn-primary">
-              Go to Dashboard
+              {t('admin.goToDashboard')}
             </Button>
           </CardContent>
         </Card>
@@ -106,8 +108,8 @@ const SuperAdminDashboard = () => {
 
     toast.success(
       dialogAction === 'approve' 
-        ? 'Request approved successfully!' 
-        : 'Request rejected successfully!'
+        ? t('admin.requests.approved')
+        : t('admin.requests.rejectedSuccess')
     );
 
     setDialogOpen(false);
@@ -128,56 +130,69 @@ const SuperAdminDashboard = () => {
     }
   };
 
+  const translateStatus = (status: string) => {
+    switch (status) {
+      case 'Pending Review':
+        return t('myRequests.status.pending');
+      case 'Approved':
+        return t('myRequests.status.approved');
+      case 'Rejected':
+        return t('myRequests.status.rejected');
+      default:
+        return status;
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Super Admin Dashboard</h1>
-        <p className="text-muted-foreground">Manage requests, products, and view analytics</p>
+        <h1 className="text-4xl font-bold mb-2">{t('admin.title')}</h1>
+        <p className="text-muted-foreground">{t('admin.subtitle')}</p>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card className="border-border/50 bg-gradient-to-br from-blue-500/10 to-blue-500/5">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Requests</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.stats.totalRequests')}</CardTitle>
             <BarChart className="h-4 w-4 text-blue-400" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.total}</div>
-            <p className="text-xs text-muted-foreground">All time requests</p>
+            <p className="text-xs text-muted-foreground">{t('admin.stats.allTime')}</p>
           </CardContent>
         </Card>
 
         <Card className="border-border/50 bg-gradient-to-br from-yellow-500/10 to-yellow-500/5">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pending Review</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.stats.pending')}</CardTitle>
             <Clock className="h-4 w-4 text-yellow-400" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.pending}</div>
-            <p className="text-xs text-muted-foreground">Awaiting action</p>
+            <p className="text-xs text-muted-foreground">{t('admin.stats.awaiting')}</p>
           </CardContent>
         </Card>
 
         <Card className="border-border/50 bg-gradient-to-br from-green-500/10 to-green-500/5">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Approved</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.stats.approved')}</CardTitle>
             <CheckCircle className="h-4 w-4 text-green-400" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.approved}</div>
-            <p className="text-xs text-muted-foreground">Successfully approved</p>
+            <p className="text-xs text-muted-foreground">{t('admin.stats.approvedSuccess')}</p>
           </CardContent>
         </Card>
 
         <Card className="border-border/50 bg-gradient-to-br from-red-500/10 to-red-500/5">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Rejected</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.stats.rejected')}</CardTitle>
             <XCircle className="h-4 w-4 text-red-400" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.rejected}</div>
-            <p className="text-xs text-muted-foreground">Not approved</p>
+            <p className="text-xs text-muted-foreground">{t('admin.stats.notApproved')}</p>
           </CardContent>
         </Card>
       </div>
@@ -186,15 +201,15 @@ const SuperAdminDashboard = () => {
         <TabsList className="grid w-full grid-cols-3 max-w-2xl">
           <TabsTrigger value="requests">
             <Users className="mr-2 h-4 w-4" />
-            Requests ({stats.pending})
+            {t('admin.tabs.requests')} ({stats.pending})
           </TabsTrigger>
           <TabsTrigger value="analytics">
             <TrendingUp className="mr-2 h-4 w-4" />
-            Analytics
+            {t('admin.tabs.analytics')}
           </TabsTrigger>
           <TabsTrigger value="products">
             <Package className="mr-2 h-4 w-4" />
-            Products ({products.length})
+            {t('admin.tabs.products')} ({products.length})
           </TabsTrigger>
         </TabsList>
 
@@ -202,14 +217,14 @@ const SuperAdminDashboard = () => {
         <TabsContent value="requests" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Customer Requests</CardTitle>
-              <CardDescription>Review and manage item requests from customers</CardDescription>
+              <CardTitle>{t('admin.requests.title')}</CardTitle>
+              <CardDescription>{t('admin.requests.subtitle')}</CardDescription>
             </CardHeader>
             <CardContent>
               {recentRequests.length === 0 ? (
                 <div className="text-center py-12 text-muted-foreground">
                   <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p>No customer requests yet</p>
+                  <p>{t('admin.requests.noRequests')}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -219,23 +234,23 @@ const SuperAdminDashboard = () => {
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <h3 className="text-lg font-semibold mb-1">{request.productName}</h3>
-                            <p className="text-sm text-muted-foreground">Store: {request.storeName}</p>
+                            <p className="text-sm text-muted-foreground">{t('admin.requests.store')}: {request.storeName}</p>
                             <p className="text-xs text-muted-foreground">
-                              Requested {new Date(request.date).toLocaleDateString()}
+                              {t('admin.requests.requested')} {new Date(request.date).toLocaleDateString()}
                             </p>
                           </div>
                           <Badge className={getStatusColor(request.status)}>
-                            {request.status}
+                            {translateStatus(request.status)}
                           </Badge>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-4 mb-4 text-sm">
                           <div>
-                            <span className="text-muted-foreground">Budget:</span>{' '}
+                            <span className="text-muted-foreground">{t('admin.requests.budget')}:</span>{' '}
                             <span className="font-semibold">{request.priceRange}</span>
                           </div>
                           <div>
-                            <span className="text-muted-foreground">Quantity:</span>{' '}
+                            <span className="text-muted-foreground">{t('admin.requests.quantity')}:</span>{' '}
                             <span className="font-semibold">{request.quantity}</span>
                           </div>
                         </div>
@@ -249,13 +264,13 @@ const SuperAdminDashboard = () => {
                               className="text-primary hover:underline inline-flex items-center gap-1 text-sm"
                             >
                               <ExternalLink className="h-3 w-3" />
-                              View Product Link
+                              {t('myRequests.viewProduct')}
                             </a>
                           </div>
                         )}
 
                         <div className="mb-4">
-                          <p className="text-sm text-muted-foreground mb-1">Description:</p>
+                          <p className="text-sm text-muted-foreground mb-1">{t('admin.requests.description')}:</p>
                           <p className="text-sm bg-muted/30 p-3 rounded border border-border/50">
                             {request.description}
                           </p>
@@ -265,12 +280,12 @@ const SuperAdminDashboard = () => {
                           <div className="mb-4 bg-blue-500/10 p-3 rounded border border-blue-500/30">
                             <p className="text-sm font-semibold mb-1 flex items-center gap-2">
                               <MessageSquare className="h-4 w-4" />
-                              Admin Notes:
+                              {t('admin.requests.adminNotes')}:
                             </p>
                             <p className="text-sm text-muted-foreground">{request.adminNotes}</p>
                             {request.reviewedBy && (
                               <p className="text-xs text-muted-foreground mt-2">
-                                Reviewed by {request.reviewedBy} on{' '}
+                                {t('admin.requests.reviewedBy')} {request.reviewedBy} on{' '}
                                 {new Date(request.reviewedAt!).toLocaleString()}
                               </p>
                             )}
@@ -284,7 +299,7 @@ const SuperAdminDashboard = () => {
                               className="flex-1 bg-green-600 hover:bg-green-700"
                             >
                               <CheckCircle className="mr-2 h-4 w-4" />
-                              Approve
+                              {t('admin.requests.approve')}
                             </Button>
                             <Button
                               onClick={() => handleOpenDialog(request.id, 'reject')}
@@ -292,7 +307,7 @@ const SuperAdminDashboard = () => {
                               className="flex-1"
                             >
                               <XCircle className="mr-2 h-4 w-4" />
-                              Reject
+                              {t('admin.requests.reject')}
                             </Button>
                           </div>
                         )}
@@ -312,36 +327,36 @@ const SuperAdminDashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Products</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t('admin.analytics.totalProducts')}</CardTitle>
                   <Package className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{products.length}</div>
-                  <p className="text-xs text-muted-foreground">Active in store</p>
+                  <p className="text-xs text-muted-foreground">{t('admin.analytics.activeInStore')}</p>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Catalog Value</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t('admin.analytics.catalogValue')}</CardTitle>
                   <ShoppingBag className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">${totalRevenue.toFixed(2)}</div>
-                  <p className="text-xs text-muted-foreground">Total inventory value</p>
+                  <p className="text-xs text-muted-foreground">{t('admin.analytics.inventoryValue')}</p>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Avg Product Price</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t('admin.analytics.avgPrice')}</CardTitle>
                   <TrendingUp className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
                     ${products.length > 0 ? (totalRevenue / products.length).toFixed(2) : '0.00'}
                   </div>
-                  <p className="text-xs text-muted-foreground">Mean price point</p>
+                  <p className="text-xs text-muted-foreground">{t('admin.analytics.meanPrice')}</p>
                 </CardContent>
               </Card>
             </div>
@@ -349,12 +364,12 @@ const SuperAdminDashboard = () => {
             {/* Category Distribution */}
             <Card>
               <CardHeader>
-                <CardTitle>Products by Category</CardTitle>
-                <CardDescription>Distribution of products across categories</CardDescription>
+                <CardTitle>{t('admin.analytics.byCategory')}</CardTitle>
+                <CardDescription>{t('admin.analytics.categoryDist')}</CardDescription>
               </CardHeader>
               <CardContent>
                 {productsByCategory.length === 0 ? (
-                  <p className="text-center text-muted-foreground py-8">No product data available</p>
+                  <p className="text-center text-muted-foreground py-8">{t('admin.analytics.noData')}</p>
                 ) : (
                   <div className="space-y-4">
                     {productsByCategory.map(category => (
@@ -362,7 +377,7 @@ const SuperAdminDashboard = () => {
                         <div className="flex justify-between mb-2 text-sm">
                           <span className="font-medium">{category.name}</span>
                           <span className="text-muted-foreground">
-                            {category.value} products ({((category.value / products.length) * 100).toFixed(1)}%)
+                            {category.value} {t('admin.analytics.products')} ({((category.value / products.length) * 100).toFixed(1)}%)
                           </span>
                         </div>
                         <div className="w-full bg-muted rounded-full h-2">
@@ -381,8 +396,8 @@ const SuperAdminDashboard = () => {
             {/* Request Status Overview */}
             <Card>
               <CardHeader>
-                <CardTitle>Request Status Overview</CardTitle>
-                <CardDescription>Breakdown of all customer requests</CardDescription>
+                <CardTitle>{t('admin.analytics.requestOverview')}</CardTitle>
+                <CardDescription>{t('admin.analytics.requestBreakdown')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -390,7 +405,7 @@ const SuperAdminDashboard = () => {
                     <div className="flex justify-between mb-2 text-sm">
                       <span className="font-medium flex items-center gap-2">
                         <Clock className="h-4 w-4 text-yellow-400" />
-                        Pending
+                        {t('admin.stats.pending')}
                       </span>
                       <span className="text-muted-foreground">
                         {stats.pending} ({stats.total > 0 ? ((stats.pending / stats.total) * 100).toFixed(1) : 0}%)
@@ -408,7 +423,7 @@ const SuperAdminDashboard = () => {
                     <div className="flex justify-between mb-2 text-sm">
                       <span className="font-medium flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-400" />
-                        Approved
+                        {t('admin.stats.approved')}
                       </span>
                       <span className="text-muted-foreground">
                         {stats.approved} ({stats.total > 0 ? ((stats.approved / stats.total) * 100).toFixed(1) : 0}%)
@@ -426,7 +441,7 @@ const SuperAdminDashboard = () => {
                     <div className="flex justify-between mb-2 text-sm">
                       <span className="font-medium flex items-center gap-2">
                         <XCircle className="h-4 w-4 text-red-400" />
-                        Rejected
+                        {t('admin.stats.rejected')}
                       </span>
                       <span className="text-muted-foreground">
                         {stats.rejected} ({stats.total > 0 ? ((stats.rejected / stats.total) * 100).toFixed(1) : 0}%)
@@ -449,25 +464,25 @@ const SuperAdminDashboard = () => {
         <TabsContent value="products" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Product Inventory</CardTitle>
-              <CardDescription>Overview of all products in the store</CardDescription>
+              <CardTitle>{t('admin.products.title')}</CardTitle>
+              <CardDescription>{t('admin.products.subtitle')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="rounded-md border">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Product</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
+                      <TableHead>{t('admin.products.product')}</TableHead>
+                      <TableHead>{t('admin.products.category')}</TableHead>
+                      <TableHead>{t('admin.products.price')}</TableHead>
+                      <TableHead className="text-right">{t('admin.products.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {products.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
-                          No products available
+                          {t('admin.products.noProducts')}
                         </TableCell>
                       </TableRow>
                     ) : (
@@ -482,7 +497,7 @@ const SuperAdminDashboard = () => {
                               size="sm"
                               onClick={() => navigate(`/product/${product.id}`)}
                             >
-                              View
+                              {t('admin.products.view')}
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -494,7 +509,7 @@ const SuperAdminDashboard = () => {
               {products.length > 10 && (
                 <div className="mt-4 text-center">
                   <Button variant="outline" onClick={() => navigate('/dashboard')}>
-                    View All Products
+                    {t('admin.products.viewAll')}
                   </Button>
                 </div>
               )}
@@ -508,18 +523,18 @@ const SuperAdminDashboard = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {dialogAction === 'approve' ? 'Approve Request' : 'Reject Request'}
+              {dialogAction === 'approve' ? t('admin.requests.approveTitle') : t('admin.requests.rejectTitle')}
             </DialogTitle>
             <DialogDescription>
               {dialogAction === 'approve'
-                ? 'Approve this customer request and optionally add notes about next steps.'
-                : 'Reject this request and provide a reason for the customer.'}
+                ? t('admin.requests.approveDesc')
+                : t('admin.requests.rejectDesc')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="admin-notes">
-                {dialogAction === 'approve' ? 'Admin Notes (Optional)' : 'Rejection Reason'}
+                {dialogAction === 'approve' ? t('admin.requests.notesOptional') : t('admin.requests.rejectionReason')}
               </Label>
               <Textarea
                 id="admin-notes"
@@ -527,8 +542,8 @@ const SuperAdminDashboard = () => {
                 onChange={e => setAdminNotes(e.target.value)}
                 placeholder={
                   dialogAction === 'approve'
-                    ? 'e.g., We can source this item within 5-7 business days...'
-                    : 'e.g., Item not available from trusted suppliers...'
+                    ? t('admin.requests.notesPlaceholder')
+                    : t('admin.requests.rejectPlaceholder')
                 }
                 rows={4}
               />
@@ -536,14 +551,14 @@ const SuperAdminDashboard = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={handleConfirmAction}
               className={dialogAction === 'approve' ? 'bg-green-600 hover:bg-green-700' : ''}
               variant={dialogAction === 'reject' ? 'destructive' : 'default'}
             >
-              {dialogAction === 'approve' ? 'Approve Request' : 'Reject Request'}
+              {dialogAction === 'approve' ? t('admin.requests.approveRequest') : t('admin.requests.rejectRequest')}
             </Button>
           </DialogFooter>
         </DialogContent>

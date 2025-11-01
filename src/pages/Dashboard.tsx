@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProducts } from '@/contexts/ProductContext';
 import { Button } from '@/components/ui/button';
@@ -24,6 +25,7 @@ import {
 } from '@/components/ui/alert-dialog';
 
 const Dashboard = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
@@ -64,7 +66,7 @@ const Dashboard = () => {
     e.preventDefault();
     
     if (!formData.name || !formData.price || !formData.category || !formData.description) {
-      toast.error('Please fill in all required fields');
+      toast.error(t('dashboard.fillRequired'));
       return;
     }
 
@@ -76,7 +78,7 @@ const Dashboard = () => {
         description: formData.description,
         category: formData.category,
       });
-      toast.success('Product updated successfully!');
+      toast.success(t('dashboard.productUpdated'));
       setEditingProduct(null);
     } else {
       addProduct({
@@ -86,7 +88,7 @@ const Dashboard = () => {
         description: formData.description,
         category: formData.category,
       });
-      toast.success('Product added successfully!');
+      toast.success(t('dashboard.productAdded'));
     }
 
     setFormData({
@@ -121,7 +123,7 @@ const Dashboard = () => {
   const confirmDelete = () => {
     if (productToDelete) {
       deleteProduct(productToDelete);
-      toast.success('Product deleted successfully!');
+      toast.success(t('dashboard.productDeleted'));
       setProductToDelete(null);
       setDeleteDialogOpen(false);
     }
@@ -141,47 +143,47 @@ const Dashboard = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
-        <p className="text-muted-foreground">Manage your store products</p>
+        <h1 className="text-4xl font-bold mb-2">{t('dashboard.title')}</h1>
+        <p className="text-muted-foreground">{t('dashboard.subtitle')}</p>
       </div>
 
       <Tabs defaultValue="add" className="w-full">
         <TabsList className="grid w-full grid-cols-2 max-w-md">
           <TabsTrigger value="add">
-            <Plus className="mr-2 h-4 w-4" />
-            {editingProduct ? 'Edit Product' : 'Add Product'}
+            <Plus className="me-2 h-4 w-4" />
+            {editingProduct ? t('dashboard.editProduct') : t('dashboard.addProduct')}
           </TabsTrigger>
           <TabsTrigger value="manage">
-            <Package className="mr-2 h-4 w-4" />
-            Manage Products
+            <Package className="me-2 h-4 w-4" />
+            {t('dashboard.manageProducts')}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="add" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>{editingProduct ? 'Edit Product' : 'Add New Product'}</CardTitle>
+              <CardTitle>{editingProduct ? t('dashboard.editProduct') : t('dashboard.addNew')}</CardTitle>
               <CardDescription>
-                {editingProduct ? 'Update the product details below' : 'Fill in the details to add a new product to your store'}
+                {editingProduct ? t('dashboard.updateDetails') : t('dashboard.fillDetails')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Product Name *</Label>
+                    <Label htmlFor="name">{t('dashboard.productName')} *</Label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="e.g., Premium Wireless Headphones"
+                      placeholder={t('dashboard.productNamePlaceholder')}
                       required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="price">Price ($) *</Label>
+                    <Label htmlFor="price">{t('dashboard.price')} *</Label>
                     <Input
                       id="price"
                       name="price"
@@ -189,52 +191,52 @@ const Dashboard = () => {
                       step="0.01"
                       value={formData.price}
                       onChange={handleInputChange}
-                      placeholder="99.99"
+                      placeholder={t('dashboard.pricePlaceholder')}
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="category">Category *</Label>
+                  <Label htmlFor="category">{t('dashboard.category')} *</Label>
                   <Select value={formData.category} onValueChange={handleCategoryChange}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                      <SelectValue placeholder={t('dashboard.selectCategory')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Electronics">Electronics</SelectItem>
-                      <SelectItem value="Fashion">Fashion</SelectItem>
-                      <SelectItem value="Home">Home</SelectItem>
-                      <SelectItem value="Sports">Sports</SelectItem>
-                      <SelectItem value="Books">Books</SelectItem>
-                      <SelectItem value="Toys">Toys</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <SelectItem value="Electronics">{t('categories.Electronics')}</SelectItem>
+                      <SelectItem value="Fashion">{t('categories.Fashion')}</SelectItem>
+                      <SelectItem value="Home">{t('categories.Home')}</SelectItem>
+                      <SelectItem value="Sports">{t('categories.Sports')}</SelectItem>
+                      <SelectItem value="Books">{t('categories.Books')}</SelectItem>
+                      <SelectItem value="Toys">{t('categories.Toys')}</SelectItem>
+                      <SelectItem value="Other">{t('categories.Other')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="image">Image URL</Label>
+                  <Label htmlFor="image">{t('dashboard.imageUrl')}</Label>
                   <Input
                     id="image"
                     name="image"
                     value={formData.image}
                     onChange={handleInputChange}
-                    placeholder="https://example.com/image.jpg (optional)"
+                    placeholder={t('dashboard.imageUrlPlaceholder')}
                   />
                   <p className="text-xs text-muted-foreground">
-                    Leave empty to use a default image
+                    {t('dashboard.leaveEmpty')}
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">Description *</Label>
+                  <Label htmlFor="description">{t('dashboard.description')} *</Label>
                   <Textarea
                     id="description"
                     name="description"
                     value={formData.description}
                     onChange={handleInputChange}
-                    placeholder="Enter product description..."
+                    placeholder={t('dashboard.descriptionPlaceholder')}
                     rows={4}
                     required
                   />
@@ -242,12 +244,12 @@ const Dashboard = () => {
 
                 <div className="flex gap-4">
                   <Button type="submit" className="flex-1">
-                    <Plus className="mr-2 h-4 w-4" />
-                    {editingProduct ? 'Update Product' : 'Add Product'}
+                    <Plus className="me-2 h-4 w-4" />
+                    {editingProduct ? t('dashboard.update') : t('dashboard.add')}
                   </Button>
                   {editingProduct && (
                     <Button type="button" variant="outline" onClick={cancelEdit}>
-                      Cancel
+                      {t('dashboard.cancel')}
                     </Button>
                   )}
                 </div>
@@ -259,9 +261,9 @@ const Dashboard = () => {
         <TabsContent value="manage" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>All Products ({products.length})</CardTitle>
+              <CardTitle>{t('dashboard.allProducts')} ({products.length})</CardTitle>
               <CardDescription>
-                View and manage all products in your store
+                {t('dashboard.viewManage')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -269,18 +271,18 @@ const Dashboard = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[100px]">Image</TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
+                      <TableHead className="w-[100px]">{t('dashboard.image')}</TableHead>
+                      <TableHead>{t('dashboard.name')}</TableHead>
+                      <TableHead>{t('dashboard.category')}</TableHead>
+                      <TableHead>{t('dashboard.price')}</TableHead>
+                      <TableHead className="text-right">{t('dashboard.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {products.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
-                          No products found. Add your first product!
+                          {t('dashboard.noProducts')}
                         </TableCell>
                       </TableRow>
                     ) : (
@@ -294,7 +296,7 @@ const Dashboard = () => {
                             />
                           </TableCell>
                           <TableCell className="font-medium">{product.name}</TableCell>
-                          <TableCell>{product.category}</TableCell>
+                          <TableCell>{t(`categories.${product.category}`)}</TableCell>
                           <TableCell>${product.price.toFixed(2)}</TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end gap-2">
@@ -328,16 +330,15 @@ const Dashboard = () => {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>{t('dashboard.deleteConfirm')}</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the product
-              from your store.
+              {t('dashboard.deleteWarning')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('dashboard.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground">
-              Delete
+              {t('dashboard.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

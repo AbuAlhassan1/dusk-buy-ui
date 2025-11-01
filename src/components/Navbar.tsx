@@ -33,7 +33,7 @@ export default function Navbar() {
             {t('nav.brand')}
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-8">
             <Link to="/products" className="text-foreground/80 hover:text-foreground transition-colors">
               {t('nav.products')}
             </Link>
@@ -45,7 +45,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-4">
             {/* Language Switcher */}
             <Button
               variant="ghost"

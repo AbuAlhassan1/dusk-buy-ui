@@ -30,9 +30,18 @@ i18n.on('languageChanged', (lng) => {
   document.documentElement.lang = lng;
 });
 
-// Set initial direction
-const currentDir = i18n.language === 'ar' ? 'rtl' : 'ltr';
-document.documentElement.dir = currentDir;
-document.documentElement.lang = i18n.language;
+// Set initial direction after i18n is initialized
+i18n.on('initialized', () => {
+  const currentDir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.dir = currentDir;
+  document.documentElement.lang = i18n.language;
+});
+
+// Also set immediately in case initialization already happened
+if (i18n.isInitialized) {
+  const currentDir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.dir = currentDir;
+  document.documentElement.lang = i18n.language;
+}
 
 export default i18n;

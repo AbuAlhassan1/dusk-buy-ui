@@ -1,13 +1,16 @@
 import { Star, Award, Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function About() {
+  const { t } = useTranslation();
+  
   return (
     <div className="min-h-screen py-12 px-4">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-6">About Alaa Gym Group</h1>
+          <h1 className="text-5xl font-bold mb-6">{t('about.title')}</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            We curate the finest collection of premium products for those who appreciate quality and elegance
+            {t('about.subtitle')}
           </p>
         </div>
 
@@ -15,18 +18,18 @@ export default function About() {
           {[
             {
               icon: Star,
-              title: 'Premium Selection',
-              description: 'Every product is carefully handpicked for quality and style',
+              title: t('about.features.selection.title'),
+              description: t('about.features.selection.description'),
             },
             {
               icon: Award,
-              title: 'Excellence',
-              description: 'Committed to providing the best luxury shopping experience',
+              title: t('about.features.excellence.title'),
+              description: t('about.features.excellence.description'),
             },
             {
               icon: Users,
-              title: 'Customer First',
-              description: 'Your satisfaction is our top priority',
+              title: t('about.features.customer.title'),
+              description: t('about.features.customer.description'),
             },
           ].map((item, index) => (
             <div
@@ -41,20 +44,15 @@ export default function About() {
         </div>
 
         <div className="prose prose-invert max-w-none">
-          <h2 className="text-3xl font-bold mb-4">Our Story</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('about.story.title')}</h2>
           <p className="text-lg text-muted-foreground mb-6">
-            Founded with a passion for excellence and community, Alaa Gym Group brings together the world's
-            finest products in one curated collection. We believe that quality should never be
-            compromised, and style should always be timeless.
+            {t('about.story.paragraph1')}
           </p>
           <p className="text-lg text-muted-foreground mb-6">
-            Our team travels the globe to discover unique pieces that embody craftsmanship,
-            innovation, and elegance. Each item in our collection tells a story and represents
-            our commitment to bringing you only the best.
+            {t('about.story.paragraph2')}
           </p>
           <p className="text-lg text-muted-foreground">
-            Join us on this journey of discovery and elevate your lifestyle with products
-            that are designed to last and inspire.
+            {t('about.story.paragraph3')}
           </p>
         </div>
       </div>

@@ -62,6 +62,81 @@ All colors MUST be HSL.
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* RTL Support */
+  [dir="rtl"] {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+  [dir="rtl"] input,
+  [dir="rtl"] textarea,
+  [dir="rtl"] select,
+  [dir="rtl"] label {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+  [dir="rtl"] input::placeholder,
+  [dir="rtl"] textarea::placeholder {
+    text-align: right !important;
+  }
+
+  /* RTL for specific text elements */
+  [dir="rtl"] p,
+  [dir="rtl"] span,
+  [dir="rtl"] div,
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    text-align: right !important;
+  }
+
+  /* RTL Flexbox support */
+  [dir="rtl"] .flex {
+    flex-direction: row-reverse;
+  }
+
+  [dir="rtl"] .flex-row {
+    flex-direction: row-reverse !important;
+  }
+
+  [dir="rtl"] .flex-col {
+    flex-direction: column !important;
+  }
+
+  /* Prevent flex-reverse on specific elements */
+  [dir="rtl"] .flex.flex-col,
+  [dir="rtl"] .flex-col {
+    flex-direction: column !important;
+  }
+
+  /* Keep tables in LTR layout even in RTL mode */
+  [dir="rtl"] table,
+  [dir="rtl"] thead,
+  [dir="rtl"] tbody,
+  [dir="rtl"] tr,
+  [dir="rtl"] th,
+  [dir="rtl"] td {
+    direction: ltr !important;
+    text-align: left !important;
+  }
+
+  [dir="ltr"] {
+    direction: ltr !important;
+    text-align: left !important;
+  }
+
+  [dir="ltr"] input,
+  [dir="ltr"] textarea,
+  [dir="ltr"] select,
+  [dir="ltr"] label {
+    direction: ltr !important;
+    text-align: left !important;
+  }
 }
 
 @layer components {

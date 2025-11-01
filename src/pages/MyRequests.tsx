@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRequests } from '@/contexts/RequestContext';
 import { Card } from '@/components/ui/card';
@@ -8,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Clock, CheckCircle, XCircle } from 'lucide-react';
 
 export default function MyRequests() {
+  const { t } = useTranslation();
   const { user, isAuthenticated } = useAuth();
   const { getUserRequests } = useRequests();
   const navigate = useNavigate();
@@ -46,18 +48,31 @@ export default function MyRequests() {
     }
   };
 
+  const translateStatus = (status: string) => {
+    switch (status) {
+      case 'Pending Review':
+        return t('myRequests.status.pending');
+      case 'Approved':
+        return t('myRequests.status.approved');
+      case 'Rejected':
+        return t('myRequests.status.rejected');
+      default:
+        return status;
+    }
+  };
+
   if (requests.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <ExternalLink className="h-24 w-24 mx-auto mb-6 text-muted-foreground" />
-          <h2 className="text-3xl font-bold mb-4">No requests yet</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('myRequests.noRequests')}</h2>
           <p className="text-muted-foreground mb-8">
-            Request items from external stores and we'll source them for you
+            {t('myRequests.noRequestsDesc')}
           </p>
           <Link to="/request-item">
             <Button size="lg" className="btn-primary">
-              Request an Item
+              {t('myRequests.requestItem')}
             </Button>
           </Link>
         </div>
@@ -70,13 +85,13 @@ export default function MyRequests() {
       <div className="container mx-auto max-w-4xl">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-4xl font-bold mb-2">My Requests</h1>
-            <p className="text-muted-foreground">Track your custom item requests</p>
+            <h1 className="text-4xl font-bold mb-2">{t('myRequests.title')}</h1>
+            <p className="text-muted-foreground">{t('myRequests.subtitle')}</p>
           </div>
           <Link to="/request-item">
             <Button className="btn-primary">
               <ExternalLink className="mr-2 h-4 w-4" />
-              New Request
+              {t('myRequests.newRequest')}
             </Button>
           </Link>
         </div>
@@ -91,10 +106,10 @@ export default function MyRequests() {
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold mb-1">{request.productName}</h3>
                   <p className="text-sm text-muted-foreground">
-                    From: {request.storeName}
+                    {t('myRequests.from')}: {request.storeName}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Requested on {new Date(request.date).toLocaleDateString('en-US', {
+                    {t('myRequests.requestedOn')} {new Date(request.date).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',
@@ -104,7 +119,7 @@ export default function MyRequests() {
                 <Badge className={getStatusColor(request.status)}>
                   <span className="flex items-center gap-1">
                     {getStatusIcon(request.status)}
-                    {request.status}
+                    {translateStatus(request.status)}
                   </span>
                 </Badge>
               </div>
@@ -112,32 +127,32 @@ export default function MyRequests() {
               <div className="space-y-3 mb-4 text-sm">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <span className="text-muted-foreground">Budget: </span>
+                    <span className="text-muted-foreground">{t('myRequests.budget')}: </span>
                     <span className="font-semibold">{request.priceRange}</span>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Quantity: </span>
+                    <span className="text-muted-foreground">{t('myRequests.quantity')}: </span>
                     <span className="font-semibold">{request.quantity}</span>
                   </div>
                 </div>
 
                 {request.productUrl && (
                   <div>
-                    <span className="text-muted-foreground">Product Link: </span>
+                    <span className="text-muted-foreground">{t('myRequests.productLink')}: </span>
                     <a
                       href={request.productUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline inline-flex items-center gap-1"
                     >
-                      View Product
+                      {t('myRequests.viewProduct')}
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   </div>
                 )}
 
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Details:</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t('myRequests.details')}:</p>
                   <p className="text-foreground/90 bg-muted/30 p-3 rounded border border-border/50">
                     {request.description}
                   </p>
@@ -145,7 +160,7 @@ export default function MyRequests() {
 
                 {request.adminNotes && (
                   <div className="bg-blue-500/10 p-3 rounded border border-blue-500/30">
-                    <p className="text-sm font-semibold mb-1">Admin Response:</p>
+                    <p className="text-sm font-semibold mb-1">{t('myRequests.adminResponse')}:</p>
                     <p className="text-sm text-foreground/90">{request.adminNotes}</p>
                   </div>
                 )}
@@ -154,7 +169,7 @@ export default function MyRequests() {
               {request.status === 'Pending Review' && (
                 <div className="bg-primary/10 p-3 rounded-lg border border-primary/20">
                   <p className="text-sm text-muted-foreground">
-                    💡 We're reviewing your request. You'll be notified once we have an update.
+                    💡 {t('myRequests.pendingNote')}
                   </p>
                 </div>
               )}

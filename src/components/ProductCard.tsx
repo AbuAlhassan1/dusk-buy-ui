@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ShoppingCart } from 'lucide-react';
 import { Product, useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { t } = useTranslation();
   const { addToCart } = useCart();
 
   return (
@@ -27,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
             {product.name}
           </h3>
-          <p className="text-sm text-muted-foreground mb-2">{product.category}</p>
+          <p className="text-sm text-muted-foreground mb-2">{t(`categories.${product.category}`)}</p>
           <p className="text-2xl font-bold gradient-text">${product.price}</p>
         </Link>
       </CardContent>
@@ -38,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           size="lg"
         >
           <ShoppingCart className="mr-2 h-4 w-4" />
-          Add to Cart
+          {t('products.addToCart')}
         </Button>
       </CardFooter>
     </Card>

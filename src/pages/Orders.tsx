@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Package, ShoppingBag } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ interface Order {
 }
 
 export default function Orders() {
+  const { t } = useTranslation();
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
@@ -33,11 +35,11 @@ export default function Orders() {
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <Package className="h-24 w-24 mx-auto mb-6 text-muted-foreground" />
-          <h2 className="text-3xl font-bold mb-4">No orders yet</h2>
-          <p className="text-muted-foreground mb-8">Start shopping to see your orders here</p>
+          <h2 className="text-3xl font-bold mb-4">{t('orders.noOrders')}</h2>
+          <p className="text-muted-foreground mb-8">{t('orders.noOrdersDesc')}</p>
           <Link to="/products">
             <Button size="lg" className="btn-primary">
-              Browse Products
+              {t('orders.browseProducts')}
             </Button>
           </Link>
         </div>
@@ -50,7 +52,7 @@ export default function Orders() {
       <div className="container mx-auto max-w-4xl">
         <div className="flex items-center gap-3 mb-8">
           <ShoppingBag className="h-8 w-8" />
-          <h1 className="text-4xl font-bold">My Orders</h1>
+          <h1 className="text-4xl font-bold">{t('orders.title')}</h1>
         </div>
 
         <div className="space-y-4">
@@ -58,7 +60,7 @@ export default function Orders() {
             <Card key={order.id} className="p-6 border-border/50 bg-gradient-to-br from-card to-card/50">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">Order #{order.id}</p>
+                  <p className="text-sm text-muted-foreground">{t('orders.orderNumber')}{order.id}</p>
                   <p className="text-sm text-muted-foreground">
                     {new Date(order.date).toLocaleDateString('en-US', {
                       year: 'numeric',
@@ -87,12 +89,12 @@ export default function Orders() {
 
               <div className="border-t border-border/50 pt-4 flex justify-between items-center">
                 <div>
-                  <span className="text-sm text-muted-foreground">Total: </span>
+                  <span className="text-sm text-muted-foreground">{t('orders.total')}: </span>
                   <span className="text-xl font-bold gradient-text">
                     ${order.total.toFixed(2)}
                   </span>
                 </div>
-                <Button variant="outline">View Details</Button>
+                <Button variant="outline">{t('orders.viewDetails')}</Button>
               </div>
             </Card>
           ))}
